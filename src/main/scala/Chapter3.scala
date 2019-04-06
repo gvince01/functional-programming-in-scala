@@ -5,6 +5,8 @@
 
 object Chapter3 extends App {
 
+  case class Cons[+A](override val head: A, override val tail: List[A]) extends List[A]
+
   def tail[A](lst: List[A]): List[A] = lst match {
     case h :: t => t
     case Nil => List()
@@ -37,6 +39,16 @@ object Chapter3 extends App {
     case h :: t => h :: init(t)
   }
 
-  
 
+  def foldRight[A, B](as: List[A], z: B)(f: (A, B) => B): B = {
+    as match {
+      case Nil => z
+      case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+    }
+  }
+
+
+  def length[A](l: List[A]): Int = {
+
+  }
 }
